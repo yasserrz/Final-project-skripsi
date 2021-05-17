@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Basis;
+use App\Gejala;
+use App\Kerusakan;
+
 
 class BasisController extends Controller
 {
@@ -14,10 +17,9 @@ class BasisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-        //
-        $basis = Basis::all();
-        return view('layout.admin.menu.basis.basis',['basis' => $basis]); 
+    {
+        $basis = Basis::Paginate(10);
+        return view('layout.admin.menu.basis.basis',compact('basis'));  
     }
 
     /**
@@ -27,7 +29,9 @@ class BasisController extends Controller
      */
     public function create()
     {
-        //
+        $kerusakan = Kerusakan::all();
+        $gejala = Gejala::all();
+        return view('layout.admin.menu.basis.create',compact('kerusakan','gejala'));
     }
 
     /**
@@ -38,7 +42,18 @@ class BasisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+
+
+        $request->validate([
+            'kode_kerusakan' => 'required',
+            'kode_gejala' => 'required',
+            'md' => 'required',
+            'mb' => 'required'
+        ]);
+
+        Basis::create($request->all());
+        return redirect('/basis');
     }
 
     /**
@@ -47,9 +62,9 @@ class BasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Basis $basis)
     {
-        //
+        return view('layout.admin.menu.basis.show', compact('basis'));
     }
 
     /**
@@ -58,9 +73,11 @@ class BasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Basis $basis)
     {
-        //
+        $kerusakan = Kerusakan::all();
+        $gejala = Gejala::all();
+        return view('layout.admin.menu.basis.edit', compact('basis','kerusakan','gejala'));
     }
 
     /**
@@ -70,9 +87,23 @@ class BasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Basis $basis)
     {
-        //
+        $request->validate([
+            'kode_kerusakan' => 'required',
+            'kode_gejala' => 'required',
+            'md' => 'required',
+            'mb' => 'required'
+        ]);
+
+        Basis::where('kode_pengetahuan', $basis->kode_pengetahuan)
+        ->update([
+            'kode_kerusakan' => $request->kode_kerusakan,
+            'kode_gejala' => $request->kode_gejala,
+            'md' => $request->md,
+            'mb' => $request->mb
+        ]);
+        return redirect('/basis');
     }
 
     /**
@@ -81,8 +112,9 @@ class BasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Basis $basis)
     {
-        //
+        Basis::destroy($basis->kode_pengetahuan);
+        return redirect('/basis');
     }
 }

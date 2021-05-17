@@ -9,4 +9,9 @@ class Gejala extends Model
     protected $table = 'gejala';
     protected $primaryKey ='kode_gejala';
     protected $fillable = ['nama_gejala'];
+
+     public function basis()
+   {
+   	 return $this->hasMany(Basis::class);
+   }
 }

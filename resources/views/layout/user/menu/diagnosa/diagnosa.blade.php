@@ -1,4 +1,4 @@
- @extends('layout.admin.master')
+ @extends('layout.user.master')
 
  @section('content')
  <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Basis Pengetahuan</h1>
+            <h1>Diagnosa</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,8 +25,8 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">List Basis Pengetahuan</h3>
-
+          <h3 class="card-title">Diagnosa Kerusakan Mobil</h3>
+      <form  action="/user" method="POST">
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
               <i class="fas fa-minus"></i>
@@ -44,37 +44,46 @@
                 <thead class="thead-dark">
                   <tr>
                   <th scope="col">No</th>
-                  <th scope="col">Kode Kerusakan</th>
                   <th scope="col">Kode Gejala</th>
-                  <th scope="col">MB</th>
-                  <th scope="col">MD</th>
-                  <th scope="col">Aksi</th>
+                  <th scope="col">Nama Gejala</th>
+                  <th scope="col">Pilih Kondisi</th>
+          
                 </tr>
                 </thead>
 
                 <tbody>
-                  @foreach ( $basis as $key => $bs )
-                  <tr>
-                    <th scope="row">{{ $basis->firstItem() + $key }}</th>
-                    <td>{{ $bs->kerusakan['nama_kerusakan'] }}</td>
-                    <td>{{ $bs->gejala['nama_gejala'] }}</td>
-                    <td>{{ $bs->mb }}</td>
-                    <td>{{ $bs->md }}</td>
+                  @foreach ( $gejala as $key => $gjd )
+                  <tr data-id="{{ $gjd->kode_gejala }}">
+                    <th scope="row">{{ $key +1   }}</th>
+                    <td>{{ $gjd->kode_gejala }}</td>
+                    <td>{{ $gjd->nama_gejala }}</td>
                     <td>
-                      <a href="/basis/{{ $bs->kode_pengetahuan}}" class="btn btn-success">Detail</a>
+                      <select class="form-control" id="kode_gejala" name="kondisi[]">
+                          @foreach ( $kondisi as $i => $ks )
+                            @if($i == 0 )
+                              <option value="{{ $i }}">{{ $ks['nama'] }}</option>
+                            @else
+                              <option value="{{ $gjd->kode_gejala }}_{{ $i }}">{{ $ks['nama'] }}</option>
+                            @endif
+                            
+                          @endforeach
+                        </select>
                     </td>
                   </tr>
                   @endforeach
                 </tbody>
 
               </table>
+
+              <button type="submit"> Diagnosa</button>
+              </form>
             </div>
           </div>
       
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-        {{ $basis->links() }}
+    
         </div>
         <!-- /.card-footer-->
       </div>

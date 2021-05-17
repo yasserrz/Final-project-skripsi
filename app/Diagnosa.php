@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Basis extends Model
+class Diagnosa extends Model
 {
    protected $table = 'basis_pengetahuan';
    protected $primaryKey ='kode_pengetahuan';

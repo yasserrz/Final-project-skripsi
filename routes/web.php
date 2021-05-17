@@ -27,6 +27,14 @@ Route::get('/admin/detail','AdminController@detail');
 Basis_pengetahuan
 */
 Route::get('/basis','BasisController@index');
+Route::get('/basis/create','BasisController@create');
+Route::get('/basis/{basis}','BasisController@show');
+Route::post('/basis','BasisController@store');
+Route::delete('/basis/{basis}','BasisController@destroy');
+Route::get('/basis/{basis}/edit','BasisController@edit');
+Route::patch('/basis/{basis}','BasisController@update');
+
+
 ;
 
 
@@ -40,7 +48,7 @@ Gejala
 // Route::delete('/gejala/{gejala}','GejalaController@destroy');
 // Route::get('/gejala/{gejala}/edit','GejalaController@edit');
 // Route::patch('/gejala/{gejala}','GejalaController@update');
-Route::resource('kerusakan','KerusakanController');
+Route::resource('gejala','GejalaController');
 
 
 
@@ -56,3 +64,8 @@ Kerusakanq
 // Route::patch('/kerusakan/{kerusakan}','KerusakanController@update');
 Route::resource('kerusakan','KerusakanController');
 
+/*
+user
+*/
+Route::get('/user','DiagnosaController@index');
+Route::post('/user','DiagnosaController@store');
