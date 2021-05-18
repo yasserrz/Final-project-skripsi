@@ -35,7 +35,7 @@ Route::get('/basis/{basis}/edit','BasisController@edit');
 Route::patch('/basis/{basis}','BasisController@update');
 
 
-;
+
 
 
 /*
@@ -67,5 +67,16 @@ Route::resource('kerusakan','KerusakanController');
 /*
 user
 */
-Route::get('/user','DiagnosaController@index');
-Route::post('/user','DiagnosaController@store');
+
+// Diagnosa
+Route::get('/diagnosa','DiagnosaController@index');
+Route::post('/diagnosa','DiagnosaController@store');
+
+
+
+//Riwayat
+
+Route::get('/riwayat','RiwayatController@index');
+Route::get('/result/{riwayat}','RiwayatController@show');
+
+// Route::('/showss','RiwayatController@show');

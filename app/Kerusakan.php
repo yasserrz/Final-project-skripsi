@@ -14,5 +14,15 @@ class Kerusakan extends Model
    {
    	 return $this->hasMany(Basis::class);
    }
+
+   public function hasil()
+   {
+   	 return $this->hasMany(Hasil::class);
+   }
+
+   public function riwayat()
+   {
+     return $this->hasMany(Riwayat::class);
+   }
     
 }

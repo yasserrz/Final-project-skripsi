@@ -8,7 +8,11 @@ class Hasil extends Model
 {
    protected $table = 'hasil';
    protected $primaryKey ='id_hasil';
-   protected $fillable = ['penyakit','gejala','kode_kerusakan','hasil_id','hasil_nilai'  ];
+   protected $fillable = ['kerusakan','gejala','hasil_id','hasil_nilai'];
 
-   
+    public function kerusakan()
+   {
+   	 return $this->belongsTo('App\Kerusakan','kode_kerusakan');
+   }
+
 }

@@ -14,4 +14,9 @@ class Gejala extends Model
    {
    	 return $this->hasMany(Basis::class);
    }
+
+    public function riwayat()
+   {
+     return $this->hasMany(Riwayat::class);
+   }
 }

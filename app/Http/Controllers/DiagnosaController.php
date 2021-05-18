@@ -20,6 +20,7 @@ class DiagnosaController extends Controller
     public function index()
     {
         //
+       
         $kondisi=config('global.kondisi');
         $gejala = Gejala::all();
         return view('layout.user.menu.diagnosa.diagnosa',compact('gejala','kondisi')); 
@@ -47,6 +48,10 @@ class DiagnosaController extends Controller
     {
         // return $request->all();
 
+        // $request->validate([
+        //     'nama_gejala' => 'required'
+        // ]);
+
         $argejala = [];
 
         foreach($request->kondisi as $i => $kondisi) {
@@ -63,7 +68,7 @@ class DiagnosaController extends Controller
         }
 
         $tmp_kerusakans = Kerusakan::orderBy('kode_kerusakan', 'asc')->get();
-
+//  Perhitungan CF Dimari kawan
         $kerusakans = $tmp_kerusakans;
         $ar_kerusakan = [];
 
@@ -74,7 +79,7 @@ class DiagnosaController extends Controller
 
             $gejalas = Basis::where('kode_kerusakan', $kerusakan->kode_kerusakan)->get();
             
-            
+            $is_null = true;
             foreach($gejalas as $j => $gejala) {
                 $tmp_kondisi = explode("_", $request->kondisi[0]);
                 $tmp_gejala = $tmp_kondisi[0];
@@ -82,12 +87,10 @@ class DiagnosaController extends Controller
                 foreach($request->kondisi as $k => $kondisi) {
                     $tmp_kondisi = explode("_", $request->kondisi[$k]);
                     $tmp_gejala = $tmp_kondisi[0];
+                    if ($is_null && isset($kondisi[1])) $is_null = false;
 
                     if ($gejala->kode_gejala == $tmp_gejala) {
-                        // return $list_kondisi[$tmp_kondisi[1]];
-                        // return (($gejala->mb - $gejala->md);
-                        $cf = ($gejala->mb - $gejala->md) * @$list_kondisi[$tmp_kondisi[1]]['bobot'];
-
+                        $cf = $gejala->mb * @$list_kondisi[$tmp_kondisi[1]]['bobot'];
                         if ( ($cf >= 0) && ($cf * $cflama >= 0) ) {
                             $cflama = $cflama + ($cf * (1- $cflama));
                         }
@@ -104,6 +107,10 @@ class DiagnosaController extends Controller
                 }       
             }
 
+            // var_dump($is_null);die;
+            if ($is_null)  return redirect('diagnosa')->with('failed', 'true');
+
+            return 'ts';  
             if ($cflama > 0) {
                 array_push($ar_kerusakan, [
                     $kerusakan->kode_kerusakan => number_format($cflama, 4)
@@ -140,11 +147,12 @@ class DiagnosaController extends Controller
         $hasil = new Hasil();
         
         $hasil->gejala = $inpgejala;
-        $hasil->penyakit = $inpkerusakan;
+        $hasil->kerusakan = $inpkerusakan;
         $hasil->hasil_id = @$data_kerusakan[1];
         $hasil->hasil_nilai = @$val_kerusakan[1];
         $hasil->save();
 
+        return redirect ('/result/'.$hasil->id_hasil);
     }
 
     /**
@@ -153,9 +161,68 @@ class DiagnosaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Gejala $gejala)
+    public function show($id)
     {
-        
+        $conf_kondisi = config('global.kondisi');
+        $hasil      = Diagnosa::with('gejala_ch')->where('id_hasil', $id)->first();
+        $arkerusakan = [];
+        $argejala   = [];
+
+        $arkerusakan = unserialize($hasil->kerusakan);
+        $argejala = unserialize($hasil->gejala);
+
+        $index = 0;
+        $detail_kerusakan = [];
+        $data_kerusakan = [];
+        // $nama_kerusakan = [];
+
+        // return $arkerusakan;
+        foreach ($arkerusakan as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                if ( !isset($detail_kerusakan['data'])) {
+                    $q_kerusakan = Kerusakan::where('kode_kerusakan', $key1)->first();
+                    $detail_kerusakan['data'] = $key1;
+                    $detail_kerusakan['value'] = $value1;
+                    $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                    $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                    $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+                } else {
+                    $q_kerusakan = Kerusakan::where('kode_kerusakan', $key1)->first();
+                    $tmp_data['data'] = $key1;
+                    $tmp_data['value'] = $value1;
+                    $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                    $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                    $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+
+                    array_push($data_kerusakan, $tmp_data);
+                }
+            }
+        }
+
+
+        $data_gejala = [];
+        foreach ($argejala as $key => $value) {
+            $id_kondisi = '';
+            foreach ($value as $i => $val) {
+                $id_kondisi = $val;
+                break;
+            }
+
+            $kode_gejala = $key;
+            $tmp_gejala = Gejala::where('kode_gejala', $kode_gejala)->first();
+            
+            if ($tmp_gejala) {
+                $tmp_kondisi = @$conf_kondisi[$id_kondisi];
+                $kondisi_txt = ($tmp_kondisi) ? $tmp_kondisi['nama'] : '';
+                $tmp_gejala->kondisi = $kondisi_txt;
+                array_push($data_gejala, $tmp_gejala);
+            }
+        }
+
+        // return $data_kerusakan;
+
+        return view('layout.user.menu.diagnosa.show', compact('data_gejala', 'detail_kerusakan', 'data_kerusakan'));
+
     }
 
     /**

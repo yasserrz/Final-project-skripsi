@@ -23,7 +23,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/admin" class="nav-link">Dashboard</a>
+        <a href="/" class="nav-link">Halaman Utama</a>
       </li>
 
   </nav>
@@ -49,33 +49,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Menu
+               User Menu
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/kerusakan" class="nav-link">
+                <a href="/diagnosa" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Kerusakan Mobil</p>
+                  <p>Diagnosa</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/gejala" class="nav-link">
+                <a href="/riwayat" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Gejala Kerusakan Mobil</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/basis" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Basis Pengetahuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/admin/detail" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Detail & solusi kerusakan</p>
+                  <p>Riwayat Diagnosa</p>
                 </a>
               </li>
             </ul>
