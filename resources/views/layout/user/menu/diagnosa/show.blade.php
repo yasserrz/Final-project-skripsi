@@ -97,7 +97,7 @@
                 </div>
                 <div class="card-body">
                   @foreach($data_kerusakan as $i => $kerusakan)
-                    <h5 class="card-title"> {{ $kerusakan['nama_kerusakan'] }} | {{ round($kerusakan['value'] * 100, 2) }}% ({{ $kerusakan['value'] }}) </h5>
+                    <h5 class="card-title"> {{ $kerusakan['nama_kerusakan'] }} | {{ round($kerusakan['value'] * 100, 2) }}% ({{ $kerusakan['value'] }})</h5><br>
                   @endforeach
                 </div>
               </div> 
@@ -108,6 +108,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
+          
         </div>
         <!-- /.card-footer-->
       </div>

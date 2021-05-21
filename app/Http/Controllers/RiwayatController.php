@@ -62,42 +62,35 @@ class RiwayatController extends Controller
         $index = 0;
         $detail_kerusakan = [];
         $data_kerusakan = [];
-        // $nama_kerusakan = [];
 
-        // return $arkerusakan;
         foreach ($arkerusakan as $key => $value) {
-            foreach ($value as $key1 => $value1) {
-                if ( !isset($detail_kerusakan['data'])) {
-                    $q_kerusakan = Kerusakan::where('kode_kerusakan', $key1)->first();
-                    $detail_kerusakan['data'] = $key1;
-                    $detail_kerusakan['value'] = $value1;
-                    $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
-                    $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
-                    $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
-                } else {
-                    $q_kerusakan = Kerusakan::where('kode_kerusakan', $key1)->first();
-                    $tmp_data['data'] = $key1;
-                    $tmp_data['value'] = $value1;
-                    $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
-                    $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
-                    $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+            if ( !isset($detail_kerusakan['data'])) {
+                $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
+                $detail_kerusakan['data'] = $key;
+                $detail_kerusakan['value'] = $value;
+                $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+            } else {
+                $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
+                $tmp_data['data'] = $key;
+                $tmp_data['value'] = $value;
+                $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
 
-                    array_push($data_kerusakan, $tmp_data);
-                }
+                array_push($data_kerusakan, $tmp_data);
             }
         }
 
-
         $data_gejala = [];
+        $xxx = [];
         foreach ($argejala as $key => $value) {
-            $id_kondisi = '';
-            foreach ($value as $i => $val) {
-                $id_kondisi = $val;
-                break;
-            }
+            $id_kondisi = $value;
 
             $kode_gejala = $key;
             $tmp_gejala = Gejala::where('kode_gejala', $kode_gejala)->first();
+
             
             if ($tmp_gejala) {
                 $tmp_kondisi = @$conf_kondisi[$id_kondisi];
@@ -107,7 +100,6 @@ class RiwayatController extends Controller
             }
         }
 
-        // return $data_kerusakan;
 
         return view('layout.user.menu.riwayat.show', compact('data_gejala', 'detail_kerusakan', 'data_kerusakan'));
     }

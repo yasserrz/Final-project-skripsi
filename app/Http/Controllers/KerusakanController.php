@@ -15,7 +15,7 @@ class KerusakanController extends Controller
      */
     public function index()
     {
-        $kerusakan = Kerusakan::Paginate(7);
+        $kerusakan = Kerusakan::Paginate(10);
         return view('layout.admin.menu.kerusakan.kerusakan',compact('kerusakan')); 
     }
 

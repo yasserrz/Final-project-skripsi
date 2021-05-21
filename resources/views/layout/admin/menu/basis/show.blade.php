@@ -34,9 +34,7 @@
     <h4 class="card-text">MB</h4>
     <p class="card-text">{{ $basis->mb }}</p>
 
-    <h4 class="card-text">MD</h4>
-    <p class="card-text">{{ $basis->md }}</p>
-
+    
    
 
     <a href="{{ $basis->kode_pengetahuan}}/edit" class="btn btn-primary">Edit</a>

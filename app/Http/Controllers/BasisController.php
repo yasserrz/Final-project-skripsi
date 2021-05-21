@@ -48,7 +48,6 @@ class BasisController extends Controller
         $request->validate([
             'kode_kerusakan' => 'required',
             'kode_gejala' => 'required',
-            'md' => 'required',
             'mb' => 'required'
         ]);
 

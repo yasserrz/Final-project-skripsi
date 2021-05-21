@@ -13,7 +13,7 @@
     </section>
 
     <!-- Main content -->
-    <section class="content 123 123">
+    <section class="content">
        <!-- Main content -->
 
     @if (session('failed')=='true')
@@ -51,10 +51,11 @@
                   @foreach ( $gejala as $key => $gjd )
                   <tr data-id="{{ $gjd->kode_gejala }}">
                     <th scope="row">{{ $key + 1   }}</th>
-                    <td>G{{ $gjd->kode_gejala }}</td>
+                    <th>G{{ str_pad($gjd['kode_gejala'], 3, '0', STR_PAD_LEFT) }}</th>
                     <td>{{ $gjd->nama_gejala }}</td>
                     <td>
                       <select class="form-control" id="kode_gejala" name="kondisi[]">
+
                           @foreach ( $kondisi as $i => $ks )
                             @if($i == 0 )
                               <option value="{{ $i }}">{{ $ks['nama'] }}</option>
@@ -63,6 +64,8 @@
                             @endif
                             
                           @endforeach
+
+                          
                         </select>
                     </td>
                   </tr>

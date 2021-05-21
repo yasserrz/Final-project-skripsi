@@ -48,7 +48,7 @@
                     <td>{{$hs->kerusakan_ch->nama_kerusakan}}</td>
                     <td>{{$hs->hasil_nilai}} </td>
                     <td>
-                     <a href="/riwayat/{{ $hs->id_hasil}}" class="btn btn-success">Detail</a>
+                     <a href="/result/{{ $hs->id_hasil}}" class="btn btn-success">Detail</a>
                    </td>
                   </tr>
                @endforeach
@@ -61,7 +61,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-    
+    {{ $hasil->links() }}
         </div>
         <!-- /.card-footer-->
       </div>

@@ -71,6 +71,7 @@ user
 // Diagnosa
 Route::get('/diagnosa','DiagnosaController@index');
 Route::post('/diagnosa','DiagnosaController@store');
+Route::get('/hasilakhir/{hasil}','DiagnosaController@show');
 
 
 

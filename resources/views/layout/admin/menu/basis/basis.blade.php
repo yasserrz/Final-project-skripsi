@@ -47,7 +47,7 @@
                   <th scope="col">Kode Kerusakan</th>
                   <th scope="col">Kode Gejala</th>
                   <th scope="col">MB</th>
-                  <th scope="col">MD</th>
+                  
                   <th scope="col">Aksi</th>
                 </tr>
                 </thead>
@@ -59,7 +59,7 @@
                     <td>{{ $bs->kerusakan['nama_kerusakan'] }}</td>
                     <td>{{ $bs->gejala['nama_gejala'] }}</td>
                     <td>{{ $bs->mb }}</td>
-                    <td>{{ $bs->md }}</td>
+                    
                     <td>
                       <a href="/basis/{{ $bs->kode_pengetahuan}}" class="btn btn-success">Detail</a>
                     </td>

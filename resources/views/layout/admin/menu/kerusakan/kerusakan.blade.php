@@ -47,8 +47,6 @@
                   <tr>
                   <th scope="col">No</th>
                   <th scope="col">Nama Kerusakan</th>
-                  <th scope="col">Detail Kerusakan</th>
-                  <th scope="col">Saran Kerusakan</th>
                   <th scope="col">Aksi</th>
 
 
@@ -60,8 +58,6 @@
                   <tr>
                     <th scope="row">{{ $kerusakan->firstItem() + $key }}</th>
                     <td>{{ $ks->nama_kerusakan }}</td>
-                    <td>{{ $ks->det_kerusakan }}</td>
-                    <td>{{ $ks->srn_kerusakan }}</td>
                     <td>
                       <a href="/kerusakan/{{ $ks->kode_kerusakan }}" class="btn btn-success">Detail</a>
                     </td>

@@ -49,10 +49,7 @@
     <input type="text" class="form-control @error('mb') is-invalid @enderror" id="mb" placeholder="Masukan MB" name="mb" value="{{ $basis->mb }}" >
     @error('mb')<div class="invalid-feedback">{{ $message }}</div>@enderror
   
-   <div class="form-group">
-    <label for="md" class="form-label">Masukan MD</label>
-    <input type="text" class="form-control @error('md') is-invalid @enderror" id="md" placeholder="Masukan MD" name="md" value="{{ $basis->md }}" >
-    @error('md')<div class="invalid-feedback">{{ $message }}</div>@enderror
+  
 
     <button type="submit" class="btn btn-primary my-3">Tambah Data</button>
   </div>
