@@ -45,7 +45,7 @@ class KerusakanController extends Controller
         ]);
 
         Kerusakan::create($request->all());
-        return redirect('/kerusakan');
+        return redirect('/admin/kerusakan');
     }
 
     /**
@@ -94,7 +94,7 @@ class KerusakanController extends Controller
             'det_kerusakan' => $request->det_kerusakan,
             'srn_kerusakan' => $request->srn_kerusakan 
         ]);
-        return redirect('/kerusakan');
+        return redirect('/admin/kerusakan');
     }
 
     /**
@@ -106,7 +106,7 @@ class KerusakanController extends Controller
     public function destroy(Kerusakan $kerusakan)
     {
         Kerusakan::destroy($kerusakan->kode_kerusakan);
-        return redirect('/kerusakan');
+        return redirect('/admin/kerusakan');
 
     }
 }

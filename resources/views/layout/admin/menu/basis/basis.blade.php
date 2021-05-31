@@ -8,12 +8,6 @@
           <div class="col-sm-6">
             <h1>Basis Pengetahuan</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
-          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -21,7 +15,7 @@
     <!-- Main content -->
     <section class="content">
        <!-- Main content -->
-    <a type="button" class="btn btn-primary my-3" href="/basis/create">Tambah Basis Pengetahuan</a>
+    <a type="button" class="btn btn-primary my-3" href="/admin/basis/create">Tambah Basis Pengetahuan</a>
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
@@ -61,7 +55,13 @@
                     <td>{{ $bs->mb }}</td>
                     
                     <td>
-                      <a href="/basis/{{ $bs->kode_pengetahuan}}" class="btn btn-success">Detail</a>
+                      <a href="/admin/basis/{{ $bs->kode_pengetahuan}}/edit" class="btn btn-primary">Edit</a>
+
+                      <form action="/admin/basis/{{ $bs->kode_pengetahuan }}" method="post" class="d-inline">
+                          @method('delete')
+                          @csrf
+                          <button href="" class="btn btn-danger" >Delete</button>
+                      </form>
                     </td>
                   </tr>
                   @endforeach

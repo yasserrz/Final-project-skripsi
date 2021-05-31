@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-	 public function dashboard()
+	 public function index()
 	 {
 	 	return view('layout.admin.menu.dashboard');	
 	 }
@@ -22,9 +22,6 @@ class AdminController extends Controller
 	{
 		return view('layout.admin.menu.detail');	
 	}
-	public function basis()
-	{
-		return view('layout.admin.menu.basis');	
-	}
+	
     
 }

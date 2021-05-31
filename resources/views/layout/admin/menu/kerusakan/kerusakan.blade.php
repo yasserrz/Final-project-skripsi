@@ -8,12 +8,6 @@
           <div class="col-sm-6">
             <h1>Kerusakan Mobil</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
-          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -22,7 +16,7 @@
     <section class="content">
 
       <!-- Default box -->
-<a type="button" class="btn btn-primary my-3" href="/kerusakan/create" >Tambah Kerusakan</a>
+<a type="button" class="btn btn-primary my-3" href="/admin/kerusakan/create" >Tambah Kerusakan</a>
 
 
   <div class="card">
@@ -59,7 +53,7 @@
                     <th scope="row">{{ $kerusakan->firstItem() + $key }}</th>
                     <td>{{ $ks->nama_kerusakan }}</td>
                     <td>
-                      <a href="/kerusakan/{{ $ks->kode_kerusakan }}" class="btn btn-success">Detail</a>
+                      <a href="/admin/kerusakan/{{ $ks->kode_kerusakan }}" class="btn btn-success">Detail</a>
                     </td>
                   </tr>
                   @endforeach

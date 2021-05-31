@@ -8,7 +8,7 @@ class Basis extends Model
 {
    protected $table = 'basis_pengetahuan';
    protected $primaryKey ='kode_pengetahuan';
-   protected $fillable = ['nama_kerusakan','nama_gejala','kode_kerusakan','kode_gejala','mb','md'];
+   protected $fillable = ['nama_kerusakan','nama_gejala','kode_kerusakan','kode_gejala','mb'];
 
    public function kerusakan()
    {

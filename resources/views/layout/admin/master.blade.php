@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en {{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Amin Page</title>
+  <title>Admin Page</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -11,6 +11,21 @@
   <link rel="stylesheet" href="/AdminLTEX/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/AdminLTEX/css/adminlte.min.css">
+
+
+  <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+      
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -18,14 +33,26 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+
+      <li class="nav-item">
         <a href="/admin" class="nav-link">Dashboard</a>
       </li>
-
+</ul>
+<ul class="navbar-nav">
+      <li class="nav-item">
+            <a href="#" onclick="event.preventDefault();
+               document.getElementById('logout-form').submit();" class="nav-link">
+               Log Out
+            </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
+      </li>
+</ul>
   </nav>
   <!-- /.navbar -->
 
@@ -55,27 +82,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/kerusakan" class="nav-link">
+                <a href="/admin/kerusakan" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kerusakan Mobil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/gejala" class="nav-link">
+                <a href="/admin/gejala" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gejala Kerusakan Mobil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/basis" class="nav-link">
+                <a href="/admin/basis" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Basis Pengetahuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/admin/detail" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Detail & solusi kerusakan</p>
                 </a>
               </li>
             </ul>

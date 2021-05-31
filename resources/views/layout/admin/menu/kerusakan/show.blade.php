@@ -8,12 +8,6 @@
           <div class="col-sm-6">
             <h1>Detail Kerusakan Mobil </h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
-          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -30,14 +24,14 @@
     <h4 class="card-text">Saran Kerusakan</h4>
     <p class="card-text">{{ $kerusakan->srn_kerusakan }}</p>
 
-    <a href="{{ $kerusakan->kode_kerusakan}}/edit" class="btn btn-primary">Edit</a>
+    <a href="/admin/kerusakan/{{ $kerusakan->kode_kerusakan}}/edit" class="btn btn-primary">Edit</a>
 
-    <form action="/kerusakan/{{ $kerusakan->kode_kerusakan }}" method="post" class="d-inline">
+    <form action="/admin/kerusakan/{{ $kerusakan->kode_kerusakan }}" method="post" class="d-inline">
       @method('delete')
       @csrf
     <button href="" class="btn btn-danger" >Delete</button>
     </form>
-    <a href="/kerusakan" class="card-link">Kembali</a>
+    <a href="/admin/kerusakan" class="card-link">Kembali</a>
   </div>
 </div>
 

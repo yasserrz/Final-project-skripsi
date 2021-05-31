@@ -43,7 +43,7 @@ class GejalaController extends Controller
         ]);
 
         Gejala::create($request->all());
-        return redirect('/gejala');
+        return redirect('/admin/gejala');
     }
 
     /**
@@ -86,7 +86,7 @@ class GejalaController extends Controller
         ->update([
             'nama_gejala' => $request->nama_gejala
         ]);
-        return redirect('/gejala');
+        return redirect('/admin/gejala');
     }
 
     /**
@@ -99,6 +99,6 @@ class GejalaController extends Controller
 
     {
         Gejala::destroy($gejala->kode_gejala);
-        return redirect('/gejala');
+        return redirect('/admin/gejala');
     }
 }

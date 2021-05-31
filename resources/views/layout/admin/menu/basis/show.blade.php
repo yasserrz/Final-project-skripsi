@@ -6,13 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Detail Kerusakan Mobil </h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
+            <h1>Detail Basis Pengetahuan </h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -34,17 +28,15 @@
     <h4 class="card-text">MB</h4>
     <p class="card-text">{{ $basis->mb }}</p>
 
-    
-   
 
-    <a href="{{ $basis->kode_pengetahuan}}/edit" class="btn btn-primary">Edit</a>
+    <a href="/admin/basis/{{ $basis->kode_pengetahuan}}/edit" class="btn btn-primary">Edit</a>
 
-    <form action="/basis/{{ $basis->kode_pengetahuan }}" method="post" class="d-inline">
+    <form action="/admin/basis/{{ $basis->kode_pengetahuan }}" method="post" class="d-inline">
       @method('delete')
       @csrf
     <button href="" class="btn btn-danger" >Delete</button>
     </form>
-    <a href="/basis" class="card-link">Kembali</a>
+    <a href="/admin/basis" class="card-link">Kembali</a>
   </div>
 </div>
 

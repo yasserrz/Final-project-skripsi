@@ -9,6 +9,7 @@ use App\Basis;
 use App\Gejala;
 use App\Kerusakan;
 use App\Hasil;
+use App\Riwayat;
 
 class DiagnosaController extends Controller
 {
@@ -139,7 +140,7 @@ class DiagnosaController extends Controller
 
     
 
-        return redirect ('/result/'.$hasil->id_hasil);
+        return redirect ('/hasilakhir/'.$hasil->id_hasil);
     }
 
     /**
@@ -150,65 +151,59 @@ class DiagnosaController extends Controller
      */
     public function show($id)
     {
-        // $conf_kondisi = config('global.kondisi');
-        // $hasil      = Diagnosa::with('gejala_ch')->where('id_hasil', $id)->first();
-        // $arkerusakan = [];
-        // $argejala   = [];
+        $conf_kondisi = config('global.kondisi');
+        $hasil      = Riwayat::with('gejala_ch')->where('id_hasil', $id)->first();
+        $arkerusakan = [];
+        $argejala   = [];
 
-        // $arkerusakan = unserialize($hasil->kerusakan);
-        // $argejala = unserialize($hasil->gejala);
+        $arkerusakan = unserialize($hasil->kerusakan);
+        $argejala = unserialize($hasil->gejala);
 
-        // $index = 0;
-        // $detail_kerusakan = [];
-        // $data_kerusakan = [];
-        // // $nama_kerusakan = [];
+        $index = 0;
+        $detail_kerusakan = [];
+        $data_kerusakan = [];
 
-        // // return $arkerusakan;
-        // foreach ($arkerusakan as $key => $value) {
-        //     foreach ($value as $key1 => $value1) {
-        //         if ( !isset($detail_kerusakan['data'])) {
-        //             $q_kerusakan = Kerusakan::where('kode_kerusakan', $key1)->first();
-        //             $detail_kerusakan['data'] = $key1;
-        //             $detail_kerusakan['value'] = $value1;
-        //             $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
-        //             $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
-        //             $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
-        //         } else {
-        //             $q_kerusakan = Kerusakan::where('kode_kerusakan', $key1)->first();
-        //             $tmp_data['data'] = $key1;
-        //             $tmp_data['value'] = $value1;
-        //             $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
-        //             $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
-        //             $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+        foreach ($arkerusakan as $key => $value) {
+            if ( !isset($detail_kerusakan['data'])) {
+                $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
+                $detail_kerusakan['data'] = $key;
+                $detail_kerusakan['value'] = $value;
+                $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+            } else {
+                $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
+                $tmp_data['data'] = $key;
+                $tmp_data['value'] = $value;
+                $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
 
-        //             array_push($data_kerusakan, $tmp_data);
-        //         }
-        //     }
-        // }
+                array_push($data_kerusakan, $tmp_data);
+            }
+        }
 
+        $data_gejala = [];
+        $xxx = [];
+        foreach ($argejala as $key => $value) {
+            $id_kondisi = $value;
 
-        // $data_gejala = [];
-        // foreach ($argejala as $key => $value) {
-        //     $id_kondisi = '';
-        //     foreach ($value as $i => $val) {
-        //         $id_kondisi = $val;
-        //         break;
-        //     }
+            $kode_gejala = $key;
+            $tmp_gejala = Gejala::where('kode_gejala', $kode_gejala)->first();
 
-        //     $kode_gejala = $key;
-        //     $tmp_gejala = Gejala::where('kode_gejala', $kode_gejala)->first();
             
-        //     if ($tmp_gejala) {
-        //         $tmp_kondisi = @$conf_kondisi[$id_kondisi];
-        //         $kondisi_txt = ($tmp_kondisi) ? $tmp_kondisi['nama'] : '';
-        //         $tmp_gejala->kondisi = $kondisi_txt;
-        //         array_push($data_gejala, $tmp_gejala);
-        //     }
-        // }
+            if ($tmp_gejala) {
+                $tmp_kondisi = @$conf_kondisi[$id_kondisi];
+                $kondisi_txt = ($tmp_kondisi) ? $tmp_kondisi['nama'] : '';
+                $tmp_gejala->kondisi = $kondisi_txt;
+                array_push($data_gejala, $tmp_gejala);
+            }
+        }
 
-        // // return $data_kerusakan;
 
-        // return view('layout.user.menu.diagnosa.show', compact('data_gejala', 'detail_kerusakan', 'data_kerusakan'));
+        // return $data_kerusakan;
+
+        return view('layout.user.menu.diagnosa.show', compact('data_gejala', 'detail_kerusakan', 'data_kerusakan'));
 
     }
 

@@ -42,8 +42,6 @@ class BasisController extends Controller
      */
     public function store(Request $request)
     {
-    
-
 
         $request->validate([
             'kode_kerusakan' => 'required',
@@ -52,7 +50,7 @@ class BasisController extends Controller
         ]);
 
         Basis::create($request->all());
-        return redirect('/basis');
+        return redirect('/admin/basis');
     }
 
     /**
@@ -91,7 +89,6 @@ class BasisController extends Controller
         $request->validate([
             'kode_kerusakan' => 'required',
             'kode_gejala' => 'required',
-            'md' => 'required',
             'mb' => 'required'
         ]);
 
@@ -99,10 +96,9 @@ class BasisController extends Controller
         ->update([
             'kode_kerusakan' => $request->kode_kerusakan,
             'kode_gejala' => $request->kode_gejala,
-            'md' => $request->md,
             'mb' => $request->mb
         ]);
-        return redirect('/basis');
+        return redirect('/admin/basis');
     }
 
     /**
@@ -114,6 +110,6 @@ class BasisController extends Controller
     public function destroy(Basis $basis)
     {
         Basis::destroy($basis->kode_pengetahuan);
-        return redirect('/basis');
+        return redirect('/admin/basis');
     }
 }

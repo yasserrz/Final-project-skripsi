@@ -8,19 +8,14 @@
           <div class="col-sm-6">
             <h1>Gejala Kerusakan Mobil</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
-          </div>
+          
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <a type="button" class="btn btn-primary my-3" href="/gejala/create">Tambah Gejala</a>
+      <a type="button" class="btn btn-primary my-3" href="/admin/gejala/create">Tambah Gejala</a>
 
       <!-- Default box -->
       <div class="card">
@@ -56,7 +51,13 @@
                     <th scope="row">{{ $gejala->firstItem() + $key  }}</th>
                     <td>{{ $gj->nama_gejala }}</td>
                     <td>
-                     <a href="/gejala/{{ $gj->kode_gejala }}" class="btn btn-success">Detail</a>
+                     <a href="/admin/gejala/{{ $gj->kode_gejala}}/edit" class="btn btn-primary">Edit</a>
+
+                        <form action="/admin/gejala/{{ $gj->kode_gejala }}" method="post" class="d-inline">
+                      @method('delete')
+                      @csrf
+                    <button href="" class="btn btn-danger" >Delete</button>
+                    </form>
                     </td>
                   </tr>
                   @endforeach
