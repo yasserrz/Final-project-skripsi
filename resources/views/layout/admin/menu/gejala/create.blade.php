@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Detail Kerusakan Mobil </h1>
+            <h1>Tambah Gejala Kerusakan Mobil </h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,7 +18,7 @@
   <form method="POST" action="/admin/gejala">
     @csrf
   <div class="form-group">
-    <label for="nama_gejala" class="form-label">Masukan Nama Kerusakan</label>
+    <label for="nama_gejala" class="form-label">Masukan Nama Gejala Kerusakan</label>
     <input type="text" class="form-control @error('nama_gejala') is-invalid @enderror" id="nama_gejala" placeholder="Masukan Nama Gejala" name="nama_gejala" value="{{ old('nama_gejala') }}" >
     @error('nama_gejala')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>

@@ -61,7 +61,7 @@
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
 
-      <span class="brand-text font-weight-light">JamrunAuto666</span>
+      <span class="brand-text font-weight-light">RedAuto</span>
     </a>
 
     <!-- Sidebar -->

@@ -52,6 +52,7 @@ class DiagnosaController extends Controller
         // $request->validate([
         //     'nama_gejala' => 'required'
         // ]);
+
         $is_null = true;
         $argejala = [];
 
@@ -84,6 +85,7 @@ class DiagnosaController extends Controller
 
             $gejalas = Basis::where('kode_kerusakan', $kerusakan->kode_kerusakan)->get();
             
+            
             foreach($gejalas as $j => $gejala) {
                 $tmp_kondisi = explode("_", $request->kondisi[0]);
                 $tmp_gejala = $tmp_kondisi[0];
@@ -95,7 +97,7 @@ class DiagnosaController extends Controller
                     if ($gejala->kode_gejala == $tmp_gejala) {
                         $cf = $gejala->mb * @$list_kondisi[$tmp_kondisi[1]]['bobot'];
                         if ( ($cf >= 0) && ($cf * $cflama >= 0) ) {
-                            $cflama = $cflama + ($cf * (1- $cflama));
+                            $cflama = $cflama + ($cf * (1 - $cflama));
                         }
 
                         if ($cf * $cflama < 0) {
@@ -114,12 +116,14 @@ class DiagnosaController extends Controller
                 $ar_kerusakan += array($kerusakan->kode_kerusakan => number_format($cflama, 4));
             }   
         }
-
+            // Mengurut data array kerusakan
         arsort($ar_kerusakan);
-
+            // kegunaan serialize buat convert array ke string
         $inpgejala = serialize($argejala);
         $inpkerusakan = serialize($ar_kerusakan);
 
+
+            //buat generate hasil diagnosa
         $index = 0;
         $data_kerusakan = [];
         $val_kerusakan = [];
@@ -129,6 +133,8 @@ class DiagnosaController extends Controller
             $data_kerusakan[$index] = $key;
             $val_kerusakan[$index] = $value;
         }
+
+        //untuk save
 
         $hasil = new Hasil();
         

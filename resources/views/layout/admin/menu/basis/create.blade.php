@@ -20,16 +20,16 @@
   <div class="form-group">
 
   <label for="kode_kerusakan" class="form-label">Pilih Kerusakan</label>
-    <select class="form-control" id="kode_kerusakan" name="kode_kerusakan" >
-      <option selected>Silahkan Pilih</option>
+    <select class="form-control @error('kode_kerusakan') is-invalid @enderror " id="kode_kerusakan" name="kode_kerusakan" >>
+      <option selected></option>
       @foreach ( $kerusakan as $ks )
       <option value="{{ $ks->kode_kerusakan }}">{{ $ks->nama_kerusakan }}</option>
       @endforeach
   </select>
 
     <label for="kode_gejala" class="form-label">Pilih Gejala</label>
-    <select class="form-control" id="kode_gejala" name="kode_gejala">
-      <option selected>Open this select menu</option>
+    <select class="form-control @error('kode_gejala') is-invalid @enderror" id="kode_gejala" name="kode_gejala">
+      <option selected></option>
       @foreach ( $gejala as $gj )
       <option value="{{ $gj->kode_gejala }}">{{ $gj->nama_gejala }}</option>
       @endforeach

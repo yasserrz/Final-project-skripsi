@@ -38,8 +38,8 @@
                 <thead class="thead-dark">
                   <tr>
                   <th scope="col">No</th>
-                  <th scope="col">Kode Kerusakan</th>
-                  <th scope="col">Kode Gejala</th>
+                  <th scope="col">Nama Kerusakan</th>
+                  <th scope="col">Nama Gejala</th>
                   <th scope="col">MB</th>
                   
                   <th scope="col">Aksi</th>
