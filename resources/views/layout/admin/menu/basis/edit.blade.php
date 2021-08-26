@@ -38,14 +38,24 @@
       @endforeach
     </select>
 
+    <!--  <label for="mb" class="form-label">Nilai Kepercayaan Pakar</label>
+    <select class="form-control @error('mb') is-invalid @enderror" id="mb" name="mb">
+      <option selected value="{{ $basis->mb }}">{{ $basis->mb }}</option>
+      <option value="0.2">0.2</option>
+      <option value="0.4">0.4</option>
+      <option value="0.6">0.6</option>
+      <option value="0.8">0.8</option>
+      <option value="1">1</option>
+    </select> -->
+
     <div class="form-group">
     <label for="mb" class="form-label">Masukan MB</label>
     <input type="text" class="form-control @error('mb') is-invalid @enderror" id="mb" placeholder="Masukan MB" name="mb" value="{{ $basis->mb }}" >
     @error('mb')<div class="invalid-feedback">{{ $message }}</div>@enderror
-  
+    
   
 
-    <button type="submit" class="btn btn-primary my-3">Tambah Data</button>
+    <button type="submit" class="btn btn-primary my-3">Ubah Data</button>
   </div>
   
 </form>

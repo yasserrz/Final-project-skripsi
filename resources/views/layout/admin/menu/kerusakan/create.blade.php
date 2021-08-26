@@ -19,16 +19,16 @@
     @csrf
   <div class="form-group">
     <label for="nama_kerusakan" class="form-label">Masukan Nama Kerusakan</label>
-    <input type="text" class="form-control @error('nama_kerusakan') is-invalid @enderror" id="nama_kerusakan" placeholder="Masukan Nama Kerusakan" name="nama_kerusakan" value="{{ old('nama_kerusakan') }}" >
+    <input type="text" autocomplete="off" class="form-control @error('nama_kerusakan') is-invalid @enderror" id="nama_kerusakan" placeholder="Masukan Nama Kerusakan" name="nama_kerusakan" value="{{ old('nama_kerusakan') }}" >
     @error('nama_kerusakan')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
    <div class="form-group">
     <label for="det_kerusakan" class="form-label">Masukan Detail Kerusakan</label>
-    <input type="text" class="form-control  @error('det_kerusakan') is-invalid @enderror" id="det_kerusakan" placeholder="Detail Kerusakan" name="det_kerusakan" value="{{ old('det_kerusakan') }}"> @error('det_kerusakan')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    <input type="text" autocomplete="off" class="form-control  @error('det_kerusakan') is-invalid @enderror" id="det_kerusakan" placeholder="Detail Kerusakan" name="det_kerusakan" value="{{ old('det_kerusakan') }}"> @error('det_kerusakan')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
    <div class="form-group">
     <label for="srn_kerusakan" class="form-label">Masukan Saran Kerusakan</label>
-    <input type="text" class="form-control  @error('srn_kerusakan') is-invalid @enderror" id="srn_kerusakan" placeholder="Saran Kerusakan" name="srn_kerusakan" value="{{ old('srn_kerusakan') }}">
+    <input type="text"  autocomplete="off" class="form-control  @error('srn_kerusakan') is-invalid @enderror" id="srn_kerusakan" placeholder="Saran Kerusakan" name="srn_kerusakan" value="{{ old('srn_kerusakan') }}">
     @error('srn_kerusakan')<div class="invalid-feedback">{{ $message }}</div>@enderror
 
     <button type="submit" class="btn btn-primary my-3">Tambah Data</button>

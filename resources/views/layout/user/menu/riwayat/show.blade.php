@@ -60,8 +60,12 @@
                  Hasil Diagnosa
                 </div>
                 <div class="card-body">
-                  <p class="card-text font-weight-bold">{{ $detail_kerusakan['nama_kerusakan'] }}</p>
-                  <p class="card-text"> {{ round($detail_kerusakan['value'] * 100, 2) }}% ({{ $detail_kerusakan['value'] }}) </p>
+                  <p class="card-text font-weight-bold">
+                     @foreach($detail_kerusakan as $i => $detail)
+                      - {{ $detail['nama_kerusakan'] }} | {{ round($detail['value'] * 100, 2) }}% ({{ $detail['value'] }})
+                      <br />
+                   @endforeach
+                  </p>
                   
                 </div>
               </div>
@@ -72,7 +76,11 @@
                  Detail Kerusakan
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"> {{ $detail_kerusakan['detail_kerusakan'] }} </h5>
+                  <h5 class="card-title"> 
+                  @foreach($detail_kerusakan as $i => $detail)
+                      - {{ $detail['detail_kerusakan'] }} 
+                      <br />
+                    @endforeach </h5>
                   
                 </div>
               </div>
@@ -84,7 +92,12 @@
                  Saran Kerusakan
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"> {{ $detail_kerusakan['saran_kerusakan'] }} </h5>
+                  <h5 class="card-title">
+                    @foreach($detail_kerusakan as $i => $detail)
+                      - {{ $detail['saran_kerusakan'] }} 
+                      <br />
+                    @endforeach
+                  </h5>
                   
                 </div>
               </div>
@@ -97,7 +110,7 @@
                 </div>
                 <div class="card-body">
                   @foreach($data_kerusakan as $i => $kerusakan)
-                    <h5 class="card-title"> {{ $kerusakan['nama_kerusakan'] }} | {{ round($kerusakan['value'] * 100, 2) }}% ({{ $kerusakan['value'] }})</h5><br>
+                    <h5 class="card-title">- {{ $kerusakan['nama_kerusakan'] }} | {{ round($kerusakan['value'] * 100, 2) }}% ({{ $kerusakan['value'] }})</h5><br>
                   @endforeach
                 </div>
               </div> 

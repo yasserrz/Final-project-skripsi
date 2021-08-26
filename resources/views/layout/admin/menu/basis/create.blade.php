@@ -39,6 +39,17 @@
     <label for="mb" class="form-label">Masukan MB</label>
     <input type="text" class="form-control @error('mb') is-invalid @enderror" id="mb" placeholder="Masukan MB" name="mb" value="{{ old('mb') }}" >
     @error('mb')<div class="invalid-feedback">{{ $message }}</div>@enderror
+
+
+    <!-- <label for="mb" class="form-label">Nilai Kepercayaan Pakar</label>
+    <select class="form-control @error('mb') is-invalid @enderror" id="mb" name="mb">
+      <option selected></option>
+      <option value="0.2">0.2</option>
+      <option value="0.4">0.4</option>
+      <option value="0.6">0.6</option>
+      <option value="0.8">0.8</option>
+      <option value="1">1</option>
+    </select> -->
   
    
 

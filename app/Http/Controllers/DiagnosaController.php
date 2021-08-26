@@ -47,14 +47,11 @@ class DiagnosaController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-
-        // $request->validate([
-        //     'nama_gejala' => 'required'
-        // ]);
+        
 
         $is_null = true;
         $argejala = [];
+        // return $request->all();
 
         foreach($request->kondisi as $i => $kondisi) {
             $arkondisi = explode("_", $request->kondisi[$i]);
@@ -63,8 +60,7 @@ class DiagnosaController extends Controller
                 $argejala += array($arkondisi[0] => $arkondisi[1]);
             }
         }
-
-        // var_dump($is_null);die;
+        
         if ($is_null) return redirect('diagnosa')->with('failed', 'true');
 
         $list_kondisi = config('global.kondisi');
@@ -72,10 +68,8 @@ class DiagnosaController extends Controller
         foreach($list_kondisi as $i => $_kondisi) {
             $arkondisitext[$i] = $_kondisi['nama'];
         }
-
-        $tmp_kerusakans = Kerusakan::orderBy('kode_kerusakan', 'asc')->get();
-        //  Perhitungan CF Dimari kawan
-        $kerusakans = $tmp_kerusakans;
+        //  Perhitungan CF 
+        $kerusakans = Kerusakan::orderBy('kode_kerusakan', 'asc')->get();
         $ar_kerusakan = [];
 
         foreach($kerusakans as $i => $kerusakan) {
@@ -85,10 +79,7 @@ class DiagnosaController extends Controller
 
             $gejalas = Basis::where('kode_kerusakan', $kerusakan->kode_kerusakan)->get();
             
-            
             foreach($gejalas as $j => $gejala) {
-                $tmp_kondisi = explode("_", $request->kondisi[0]);
-                $tmp_gejala = $tmp_kondisi[0];
 
                 foreach($request->kondisi as $k => $kondisi) {
                     $tmp_kondisi = explode("_", $request->kondisi[$k]);
@@ -99,26 +90,19 @@ class DiagnosaController extends Controller
                         if ( ($cf >= 0) && ($cf * $cflama >= 0) ) {
                             $cflama = $cflama + ($cf * (1 - $cflama));
                         }
-
-                        if ($cf * $cflama < 0) {
-                            $cflama = ($cflama + $cf) / (1 - Math.min(Math.abs($cflama), Math.abs($cf)));
-                        }
-
-                        if ( ($cf < 0) && ($cf * $cflama >= 0)) {
-                            $cflama = $cflama + ($cf * (1 + $cflama));
-                        }
-
                     }
                 }       
             }           
 
             if ($cflama > 0) {
                 $ar_kerusakan += array($kerusakan->kode_kerusakan => number_format($cflama, 4));
-            }   
+            }
         }
-            // Mengurut data array kerusakan
+        // return $ar_kerusakan;
+
+        // Mengurut data array kerusakan
         arsort($ar_kerusakan);
-            // kegunaan serialize buat convert array ke string
+        // kegunaan serialize buat convert array ke string
         $inpgejala = serialize($argejala);
         $inpkerusakan = serialize($ar_kerusakan);
 
@@ -166,19 +150,27 @@ class DiagnosaController extends Controller
         $argejala = unserialize($hasil->gejala);
 
         $index = 0;
+        $rating = null;
         $detail_kerusakan = [];
         $data_kerusakan = [];
 
         foreach ($arkerusakan as $key => $value) {
-            if ( !isset($detail_kerusakan['data'])) {
+            if ( $rating === null ||  $rating == $value ) {
+                $rating = $value;
                 $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
-                $detail_kerusakan['data'] = $key;
-                $detail_kerusakan['value'] = $value;
-                $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
-                $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
-                $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
-            } else {
+
+                $tmp_data['data'] = $key;
+                $tmp_data['value'] = $value;
+                $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+
+                array_push($detail_kerusakan, $tmp_data);
+            } 
+
+            else {
                 $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
+                
                 $tmp_data['data'] = $key;
                 $tmp_data['value'] = $value;
                 $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
@@ -249,3 +241,11 @@ class DiagnosaController extends Controller
     
     }
 }
+
+                        // if ($cf * $cflama < 0) {
+                        //     $cflama = ($cflama + $cf) / (1 - Math.min(Math.abs($cflama), Math.abs($cf)));
+                        // }
+
+                        // if ( ($cf < 0) && ($cf * $cflama >= 0)) {
+                        //     $cflama = $cflama + ($cf * (1 + $cflama));
+                        // }

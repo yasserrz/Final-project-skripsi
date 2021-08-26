@@ -18,7 +18,7 @@
 
     @if (session('failed')=='true')
     <div class="alert alert-danger">
-           <h5>Tolong pilih salah satu kondisi</h5>
+           <h5>Tolong isi jawaban salah satu gejala</h5>
     </div>
     @endif
 
@@ -55,7 +55,6 @@
                     <td>{{ $gjd->nama_gejala }}</td>
                     <td>
                       <select class="form-control" id="kode_gejala" name="kondisi[]">
-
                           @foreach ( $kondisi as $i => $ks )
                             @if($i == 0 )
                               <option value="{{ $i }}">{{ $ks['nama'] }}</option>

@@ -3,25 +3,25 @@
 return [
 
     'kondisi' => [
+        [
+            'nama' => '',
+            'bobot' => 0
+        ],
     	[
             'nama' => 'Tidak',
             'bobot' => 0
         ],
         [
-            'nama' => 'Tidak Tahu',
-            'bobot' => 0.2
-        ],
-        [
             'nama' => 'Sedikit Yakin',
-            'bobot' => 0.4
+            'bobot' => 0.25
         ],
         [
             'nama' => 'Cukup Yakin',
-            'bobot' => 0.6
+            'bobot' => 0.5
         ],
         [
             'nama' => 'Yakin',
-            'bobot' => 0.8
+            'bobot' => 0.75
         ],
         [
             'nama' => 'Sangat Yakin',

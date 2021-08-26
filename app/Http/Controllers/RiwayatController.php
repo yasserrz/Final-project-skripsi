@@ -19,7 +19,9 @@ class RiwayatController extends Controller
     {
         
         $hasil = Riwayat::with('kerusakan_ch')->Paginate(10);
+        
         return view('layout.user.menu.riwayat.riwayat',compact('hasil')); 
+
     }
 
     /**
@@ -60,19 +62,27 @@ class RiwayatController extends Controller
         $argejala = unserialize($hasil->gejala);
 
         $index = 0;
+        $rating = null;
         $detail_kerusakan = [];
         $data_kerusakan = [];
 
         foreach ($arkerusakan as $key => $value) {
-            if ( !isset($detail_kerusakan['data'])) {
+            if ( $rating === null ||  $rating == $value ) {
+                $rating = $value;
                 $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
-                $detail_kerusakan['data'] = $key;
-                $detail_kerusakan['value'] = $value;
-                $detail_kerusakan['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
-                $detail_kerusakan['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
-                $detail_kerusakan['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
-            } else {
+
+                $tmp_data['data'] = $key;
+                $tmp_data['value'] = $value;
+                $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
+                $tmp_data['detail_kerusakan'] = $q_kerusakan ? $q_kerusakan->det_kerusakan : '';
+                $tmp_data['saran_kerusakan'] = $q_kerusakan ? $q_kerusakan->srn_kerusakan : '';
+
+                array_push($detail_kerusakan, $tmp_data);
+            } 
+
+            else {
                 $q_kerusakan = Kerusakan::where('kode_kerusakan', $key)->first();
+                
                 $tmp_data['data'] = $key;
                 $tmp_data['value'] = $value;
                 $tmp_data['nama_kerusakan'] = $q_kerusakan ? $q_kerusakan->nama_kerusakan : '';
@@ -99,7 +109,6 @@ class RiwayatController extends Controller
                 array_push($data_gejala, $tmp_gejala);
             }
         }
-
 
         return view('layout.user.menu.riwayat.show', compact('data_gejala', 'detail_kerusakan', 'data_kerusakan'));
     }

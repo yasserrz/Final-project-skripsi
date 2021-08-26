@@ -19,7 +19,7 @@
     @csrf
   <div class="form-group">
     <label for="nama_gejala" class="form-label">Masukan Nama Gejala Kerusakan</label>
-    <input type="text" class="form-control @error('nama_gejala') is-invalid @enderror" id="nama_gejala" placeholder="Masukan Nama Gejala" name="nama_gejala" value="{{ old('nama_gejala') }}" >
+    <input  type="text"  autocomplete="off" class="form-control @error('nama_gejala') is-invalid @enderror" id="nama_gejala" placeholder="Masukan Nama Gejala" name="nama_gejala" value="{{ old('nama_gejala') }}" >
     @error('nama_gejala')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
     <button type="submit" class="btn btn-primary my-3">Tambah Data</button>
